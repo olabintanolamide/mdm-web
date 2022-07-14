@@ -27,10 +27,6 @@ const getRefreshToken = () => {
   return localStorage.getItem('refreshToken');
 };
 
-const removeDomainObj = () => {
-  localStorage.removeItem('domain');
-};
-
 const removeToken = () => {
   localStorage.removeItem('accessToken');
   localStorage.removeItem('refreshToken');
@@ -63,7 +59,6 @@ const Auth = {
   removeToken,
   setRefreshToken,
   getRefreshToken,
-  removeDomainObj,
   logOut
 };
 

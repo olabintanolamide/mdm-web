@@ -1,21 +1,26 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import { Box, Card, Stack, TextField, Button, Typography } from "@mui/material";
 import { ReactComponent as IncordIcon } from "../../../../assets/svg/incord.svg";
 import AuthLayout from "../../layout/AuthLayout";
 import { useLogin } from "../../../../hooks/queries/useAuth";
+import { loginDefaultValues, loginResover } from "../../../validators";
 
 const SignIn = () => {
   const { loginMutate, isSigningIn } = useLogin()
   const [password, setPassword] = React.useState('')
   const [email, setEmail] = React.useState('')
-  const onSubmit = (e) => {
-    e.preventDefault()
-    const payload = {
-      email,
-      password
-    }
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    defaultValues: loginDefaultValues,
+    resolver: loginResover
+  })
+  const onSubmit = (data) => {
+    let payload = {}
+    Object.keys(loginDefaultValues).forEach(field => {
+      payload[field] = data[field]
+    })
 
     loginMutate({
       payload
@@ -36,7 +41,8 @@ const SignIn = () => {
           </Typography>
         </Box>
       }
-      onAction={onSubmit}
+      loading={isSigningIn}
+      onAction={handleSubmit(onSubmit)}
     >
       <Box sx={{ my: 1, boxSizing: "border-box", width: "100%" }}>
         <TextField
@@ -44,7 +50,12 @@ const SignIn = () => {
           fullWidth
           label="Email"
           variant="outlined"
-          onChange={(e) => setEmail(e.target.value)}
+          name="email"
+          error={errors.email}
+          // onChange={(e) => setEmail(e.target.value)}
+          {...register('email')}
+          helperText={errors?.email?.message || ''}
+
         />
       </Box>
       <Box sx={{ my: 1, boxSizing: "border-box", width: "100%" }}>
@@ -52,8 +63,13 @@ const SignIn = () => {
           id="outlined-basic"
           label="Password"
           variant="outlined"
+          type='password'
           fullWidth
-          onChange={(e) => setPassword(e.target.value)}
+          name="password"
+          error={errors.password}
+          helperText={errors?.password?.message || ''}
+          // onChange={(e) => setPassword(e.target.value)}
+          {...register('password')}
         />
       </Box>
     </AuthLayout>
