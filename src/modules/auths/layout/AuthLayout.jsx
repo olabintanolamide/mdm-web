@@ -1,16 +1,17 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
-import { Box, Card, Stack, TextField, Button, Typography } from "@mui/material";
+import { Box, Card, Stack, Button, Typography } from "@mui/material";
 import { ReactComponent as IncordIcon } from "../../../assets/svg/incord.svg";
 
 const AuthLayout = ({
-    headerTitle,
-    actionText,
-    forgotPassword,
-    footerComponent,
-    onAction,
-    children,
+  headerTitle,
+  actionText,
+  forgotPassword,
+  footerComponent,
+  onAction,
+  children,
+  loading
 }) => {
   return (
     <Box sx={{ display: "grid", placeItems: "center", height: "100vh" }}>
@@ -52,29 +53,36 @@ const AuthLayout = ({
           >
             {children}
             {forgotPassword && (
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-start",
-                width: "100%",
-                my: 1,
-              }}
-            >
-              <Link style={{ textDecoration: "none" }} to="/forgot-password">
-                forgot password
-              </Link>
-            </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  width: "100%",
+                  my: 1,
+                }}
+              >
+                <Link style={{ textDecoration: "none" }} to="/forgot-password">
+                  forgot password
+                </Link>
+              </Box>
             )}
-            <Button type="submit" fullWidth variant="contained">
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              disabled={loading}
+            >
               {actionText}
             </Button>
             {footerComponent && (
-            <Box sx={{ boxSizing: "border-box",
-            width: "100%", }}>
-              <Typography variant="body2">
-               {footerComponent}
-              </Typography>
-            </Box>
+              <Box sx={{
+                boxSizing: "border-box",
+                width: "100%",
+              }}>
+                <Typography variant="body2">
+                  {footerComponent}
+                </Typography>
+              </Box>
 
             )}
           </Box>
@@ -91,11 +99,13 @@ AuthLayout.propTypes = {
   footerComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   onAction: PropTypes.func,
   children: PropTypes.node.isRequired,
+  loading: PropTypes.bool
 }
 AuthLayout.defaultProps = {
   forgotPassword: false,
   footerComponent: '',
-  onAction: () => {}
+  onAction: () => { },
+  loading: false
 }
 
 export default AuthLayout
