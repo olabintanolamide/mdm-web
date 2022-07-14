@@ -1,10 +1,28 @@
+/* eslint-disable no-unused-vars */
 import React from "react";
 import { Link } from "react-router-dom";
 import { Box, Card, Stack, TextField, Button, Typography } from "@mui/material";
 import { ReactComponent as IncordIcon } from "../../../../assets/svg/incord.svg";
 import AuthLayout from "../../layout/AuthLayout";
+import { useLogin } from "../../../../hooks/queries/useAuth";
 
 const SignIn = () => {
+  const { loginMutate, isSigningIn } = useLogin()
+  const [password, setPassword] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const payload = {
+      email,
+      password
+    }
+
+    loginMutate({
+      payload
+    })
+  }
+
+
   return (
     <AuthLayout
       headerTitle="Sign in777 with your email"
@@ -18,6 +36,7 @@ const SignIn = () => {
           </Typography>
         </Box>
       }
+      onAction={onSubmit}
     >
       <Box sx={{ my: 1, boxSizing: "border-box", width: "100%" }}>
         <TextField
@@ -25,14 +44,16 @@ const SignIn = () => {
           fullWidth
           label="Email"
           variant="outlined"
+          onChange={(e) => setEmail(e.target.value)}
         />
       </Box>
       <Box sx={{ my: 1, boxSizing: "border-box", width: "100%" }}>
         <TextField
           id="outlined-basic"
-          label="Password"  
+          label="Password"
           variant="outlined"
           fullWidth
+          onChange={(e) => setPassword(e.target.value)}
         />
       </Box>
     </AuthLayout>
