@@ -25,7 +25,7 @@ const SignIn = () => {
 
   return (
     <AuthLayout
-      headerTitle="Sign in777 with your email"
+      headerTitle="Sign in with your email"
       actionText="Sign In"
       forgotPassword
       footerComponent={
