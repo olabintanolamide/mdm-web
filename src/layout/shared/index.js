@@ -6,4 +6,5 @@ const BufferLayout = () => {
   return <Outlet />;
 };
 
+
 export default BufferLayout;
