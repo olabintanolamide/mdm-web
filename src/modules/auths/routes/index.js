@@ -5,10 +5,12 @@ import SignUp from "../views/signup";
 import { Route, Routes, Navigate } from "react-router-dom";
 import BufferLayout from "../../../layout/shared";
 
+
 export const routes = [
   { path: "signin", element: <SignIn /> },
   { path: "signup", element: <SignUp /> },
   { path: "forgot-password", element: <ForgotPassword /> },
+
 ];
 
 const AuthRoutes = () => {

@@ -1,17 +1,11 @@
-import React from "react";
-import { TextField, Box } from "@mui/material";
+import * as React from 'react';
+import Workbench from './Workbench';
 
-const Dashboard = () => {
-  return(
-   <Box>
-     <TextField>
-        
-     </TextField>
-     fshgdhgasjdbfjbdsjf
-   </Box>
-  
-  )
-  
-};
+export default function Dashboard() {
 
-export default Dashboard;
+ 
+  return (
+    <Workbench />
+   
+  );
+}
