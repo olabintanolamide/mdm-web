@@ -6,11 +6,14 @@ import Topbar from "./Topbar";
 
 const Layout = () => {
   return (
+    
     <Box sx={{ display: "flex" }}>
+   
       <Sidebar />
-      <Topbar />
+      <Topbar/>
       <div style={{ width: "100%", paddingTop: "80px" }}>
-        <Outlet />
+        <Outlet>
+        </Outlet>
       </div>
     </Box>
   );
